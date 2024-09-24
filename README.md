@@ -1,15 +1,61 @@
-# Kafka_implementation
-Building a custom Kafka broker capable of serving basic requests, exploring TCP servers and the Kafka wire protocol along the way.
+[![progress-banner](https://backend.codecrafters.io/progress/kafka/2ebcb6a8-08a4-4af8-b921-6f50a7f025f8)](https://app.codecrafters.io/users/codecrafters-bot?r=2qF)
 
---I implemented a TCP server that listens on port 9092, utilizing TCP as the underlying protocol for communication, similar to well-known protocols like HTTP and SSH.
-This server facilitates interaction between Kafka clients and brokers. As part of the implementation, I hardcoded the correlation ID to a fixed number in the response while also parsing the correlation ID from incoming requests to ensure consistency. 
-Additionally, I parsed the api_version field from requests and implemented logic to respond with an error if the version is unsupported. 
-Finally, I developed the response body for the APIVersions request, completing the server's basic functionality.
+This is a starting point for Python solutions to the
+["Build Your Own Kafka" Challenge](https://codecrafters.io/challenges/kafka).
 
-Currently working on Serial Requests .
+In this challenge, you'll build a toy Kafka clone that's capable of accepting
+and responding to APIVersions & Fetch API requests. You'll also learn about
+encoding and decoding messages using the Kafka wire protocol. You'll also learn
+about handling the network protocol, event loops, TCP sockets and more.
 
+**Note**: If you're viewing this repo on GitHub, head over to
+[codecrafters.io](https://codecrafters.io) to try the challenge.
 
+# Passing the first stage
 
+The entry point for your Kafka implementation is in `app/main.py`. Study and
+uncomment the relevant code, and push your changes to pass the first stage:
 
+```sh
+git commit -am "pass 1st stage" # any msg
+git push origin master
+```
 
+That's all!
 
+# Stage 2 & beyond
+
+Note: This section is for stages 2 and beyond.
+
+1. Ensure you have `python (3.x)` installed locally
+1. Run `./your_program.sh` to run your Kafka broker, which is implemented in
+   `app/main.py`.
+1. Commit your changes and run `git push origin master` to submit your solution
+   to CodeCrafters. Test output will be streamed to your terminal.
+
+# Troubleshooting
+
+## module `socket` has no attribute `create_server`
+
+When running your server locally, you might see an error like this:
+
+```
+Traceback (most recent call last):
+  File "/.../python3.7/runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "/.../python3.7/runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "/app/app/main.py", line 11, in <module>
+    main()
+  File "/app/app/main.py", line 6, in main
+    s = socket.create_server(("localhost", 6379), reuse_port=True)
+AttributeError: module 'socket' has no attribute 'create_server'
+```
+
+This is because `socket.create_server` was introduced in Python 3.8, and you
+might be running an older version.
+
+You can fix this by installing Python 3.8 locally and using that.
+
+If you'd like to use a different version of Python, change the `language_pack`
+value in `codecrafters.yml`.
